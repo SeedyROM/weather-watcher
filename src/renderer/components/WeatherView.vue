@@ -23,10 +23,12 @@
           </div>
           <i :class=getConditionImage()></i>
         </div>
+        <h3 id="forecast-header">5 Day Forecast:</h3>
         <div id="forecast" v-if="forecast">
           <div class="day" :key="index" v-for="(day, index) in forecast">
-            <span><i :class="getConditionImage(day)"></i></span>
-            {{ formatTime(day, "LLLL") }}
+            {{ formatTime(day, "MMMM Do @ha") }}
+            <div class="forecast-icon"><i :class="getConditionImage(day)"></i></div class="forecast-icon">
+            
           </div>
         </div>
       </div>
@@ -74,8 +76,11 @@
         return this.weatherData.weather[0].main
       },
       getConditionImage (data) {
-        data = data || this.weatherData
-        return 'owf owf-' + data.weather[0].id + this.iconSuffix(data)
+        if (data) {
+          return 'owf owf-' + data.weather[0].id + this.iconSuffix(data)
+        } else {
+          return 'owf owf-' + this.weatherData.weather[0].id + this.iconSuffix()
+        }
       },
       getTempurature () {
         return this.weatherData.main.temp
@@ -87,14 +92,13 @@
         return this.weatherData.main.temp_min
       },
       iconSuffix (data) {
-        var now
-        if (!data) {
-          now = this.weatherData
-          data = this.weatherData
-        } else {
+        if (data) {
+          console.log(data, data.weather[0].id)
           return '-' + data.sys.pod
+        } else {
+          data = this.weatherData
+          return (moment() > data.sys.sunrise && moment() < data.sys.sunset) ? '-d' : '-n'
         }
-        return (now > data.sys.sunrise && now < data.sys.sunset) ? '-d' : '-n'
       }
     },
     data: function () {
