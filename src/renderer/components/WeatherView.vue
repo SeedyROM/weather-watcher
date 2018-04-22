@@ -74,8 +74,11 @@
         return this.weatherData.weather[0].main
       },
       getConditionImage (data) {
-        data = data || this.weatherData
-        return 'owf owf-' + data.weather[0].id + this.iconSuffix(data)
+        if (data) {
+          return 'owf owf-' + data.weather[0].id + this.iconSuffix(data)
+        } else {
+          return 'owf owf-' + this.weatherData.weather[0].id + this.iconSuffix()
+        }
       },
       getTempurature () {
         return this.weatherData.main.temp
@@ -87,14 +90,13 @@
         return this.weatherData.main.temp_min
       },
       iconSuffix (data) {
-        var now
-        if (!data) {
-          now = this.weatherData
-          data = this.weatherData
+        if (data) {
+          console.log(data, data.weather[0].id)
+          return '-' + data.weather[0].id
         } else {
-          return '-' + data.sys.pod
+          data = this.weatherData
+          return (moment() > data.sys.sunrise && moment() < data.sys.sunset) ? '-d' : '-n'
         }
-        return (now > data.sys.sunrise && now < data.sys.sunset) ? '-d' : '-n'
       }
     },
     data: function () {
