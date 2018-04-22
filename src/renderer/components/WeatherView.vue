@@ -14,7 +14,7 @@
           <div>{{ weatherData.name }}</div>
           <div id="tempurature">{{ getTempurature() }}°<span>(F)</span></div>
         </h1>
-        <h4 id="date">{{ formatTime("LLLL") }}</h4>
+        <h4 id="date">{{ getCurrentTime("LLLL") }}</h4>
         <div id="condition">
           <div id="description">
             {{ getCondition() }}
@@ -24,9 +24,10 @@
           <i :class=getConditionImage()></i>
         </div>
         <div id="forecast" v-if="forecast">
-          <!-- <div class="day" :key=index v-for="(day, index) in forecast.slice(8)">
-            <span>{{ day.main }}</span>
-          </div> -->
+          <div class="day" :key="index" v-for="(day, index) in forecast">
+            <span><i :class="getConditionImage(day)"></i></span>
+            {{ formatTime(day, "LLLL") }}
+          </div>
         </div>
       </div>
     </transition>
@@ -36,6 +37,7 @@
 <script>
   import moment from 'moment'
   import { setInterval } from 'timers'
+  console.clear()
 
   export default {
     name: 'weather-view',
@@ -57,17 +59,23 @@
         this.$http
           .get('//api.openweathermap.org/data/2.5/forecast?zip=97210,us&units=imperial&APPID=172e53545a1e41a124daaefa77c8a667')
           .then(({data}) => {
+            console.info(data)
             this.forecast = data.list
           })
       },
-      formatTime (format) {
+      getCurrentTime (format) {
         return this.currentTime.format(format)
+      },
+      formatTime (data, format) {
+        console.log(data.dt)
+        return moment.unix(data.dt).format(format)
       },
       getCondition () {
         return this.weatherData.weather[0].main
       },
-      getConditionImage () {
-        return 'owf owf-' + this.weatherData.weather[0].id + this.iconSuffix()
+      getConditionImage (data) {
+        data = data || this.weatherData
+        return 'owf owf-' + data.weather[0].id + this.iconSuffix(data)
       },
       getTempurature () {
         return this.weatherData.main.temp
@@ -78,9 +86,15 @@
       getMaxTempurature () {
         return this.weatherData.main.temp_min
       },
-      iconSuffix () {
-        const now = moment()
-        return (now > this.weatherData.sys.sunrise && now < this.weatherData.sys.sunset) ? '-d' : '-n'
+      iconSuffix (data) {
+        var now
+        if (!data) {
+          now = this.weatherData
+          data = this.weatherData
+        } else {
+          return '-' + data.sys.pod
+        }
+        return (now > data.sys.sunrise && now < data.sys.sunset) ? '-d' : '-n'
       }
     },
     data: function () {
