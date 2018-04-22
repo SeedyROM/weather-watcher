@@ -1,0 +1,27 @@
+@import '~modularscale-sass/stylesheets/modularscale';
+@import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,700,900|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+
+$modularscale: (
+  base: 1em,
+  ratio: 1.45
+);
+
+@for $i from 1 through 5 {
+  h#{$i} {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 100; 
+    font-size: ms(5 - $i);
+    line-height: 1.2;
+    letter-spacing: 0.5px;
+    margin-bottom: (ms(5 - $i) / 16) + 0.5;
+
+    @if $i == 1 {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+html, body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+}

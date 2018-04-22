@@ -1,0 +1,144 @@
+.fade-forecast-enter-active, .fade-forecast-leave-active {
+  transition: opacity .7s;
+}
+.fade-forecast-enter, .fade-forecast-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.fade-loader-enter-active, .fade-loader-leave-active {
+  transition: opacity .1s;
+}
+.fade-loader-enter, .fade-loader-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-10px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+body {
+  // @extend .gradient;
+  color: $brand-primary;
+  background: #000;
+}
+
+#wrapper {
+  padding: 0 2.5rem;
+
+  @media screen and (max-width: 660px) {
+    padding: 0 1.25rem;
+  }
+}
+
+#city {
+  display: flex;
+  flex-direction: row;
+  @media screen and (max-width: 660px) {
+    margin-top: 1rem;
+  }
+}
+
+#tempurature {
+  border-left: 3px solid $brand-primary;
+  margin-left: 1.5rem;
+  padding-left: 1.5rem;
+
+  span {
+    font-size: 1rem;
+  }
+}
+
+#date {
+  margin-top: 1rem;
+}
+
+#condition {
+  font-size: 3rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  i {
+    font-size: 25vw;
+    animation: float 12s ease-in-out infinite;
+    margin-left: 30px;
+  }
+
+  .temp {
+    font-size: 1rem;
+  }
+}
+
+#loading-spinner {
+  position: fixed;
+  left: 40vw;
+  top: 40vh;
+  width: 20vw;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.gradient {
+  width: 100wh;
+  height: 90vh;
+  color: #fff;
+  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 3000s ease infinite;
+  -moz-animation: Gradient 3000s ease infinite;
+  animation: Gradient 3000s ease infinite;
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%
+  }
+  50% {
+    background-position: 100% 50%
+  }
+  100% {
+    background-position: 0% 50%
+  }
+}
+
+#forecast {
+  display: grid;
+  grid-gap: $grid-gutter-size;
+  grid-template-columns: repeat(4, 1fr);
+}
