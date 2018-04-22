@@ -36,9 +36,11 @@ body {
 
 #wrapper {
   padding: 0 2.5rem;
+  padding-bottom: 5rem;
 
   @media screen and (max-width: 660px) {
     padding: 0 1.25rem;
+    padding-bottom: 3rem;
   }
 }
 
