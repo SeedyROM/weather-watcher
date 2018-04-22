@@ -23,10 +23,12 @@
           </div>
           <i :class=getConditionImage()></i>
         </div>
+        <h3 id="forecast-header">5 Day Forecast:</h3>
         <div id="forecast" v-if="forecast">
           <div class="day" :key="index" v-for="(day, index) in forecast">
-            <span><i :class="getConditionImage(day)"></i></span>
-            {{ formatTime(day, "LLLL") }}
+            {{ formatTime(day, "MMMM Do @ha") }}
+            <div class="forecast-icon"><i :class="getConditionImage(day)"></i></div class="forecast-icon">
+            
           </div>
         </div>
       </div>
@@ -92,7 +94,7 @@
       iconSuffix (data) {
         if (data) {
           console.log(data, data.weather[0].id)
-          return '-' + data.weather[0].id
+          return '-' + data.sys.pod
         } else {
           data = this.weatherData
           return (moment() > data.sys.sunrise && moment() < data.sys.sunset) ? '-d' : '-n'

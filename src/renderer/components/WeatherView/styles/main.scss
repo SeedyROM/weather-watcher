@@ -45,6 +45,7 @@ body {
 #city {
   display: flex;
   flex-direction: row;
+  margin-top: 1.75rem;
   @media screen and (max-width: 660px) {
     margin-top: 1rem;
     font-size: 8vw;
@@ -87,6 +88,11 @@ body {
   }
 
   #description {
+    @media screen and (max-width: 660px) {
+      i { 
+        font-size: 3rem;
+      }
+    }
     @media screen and (max-width: 480px) {
       font-size: 13.2vw;
       margin-bottom: 1rem;
@@ -172,4 +178,36 @@ body {
   display: grid;
   grid-gap: $grid-gutter-size;
   grid-template-columns: repeat(4, 1fr);
+
+  .day {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    
+    .forecast-icon i {
+      font-size: 10vw;
+    }
+  }
+
+  @media screen and (max-width: 660px) {
+    display: block;
+
+    .day {
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid white;
+      margin-bottom: 2rem;
+
+      .forecast-icon i {
+        font-size: 33vw;
+      }
+    }
+  }
+}
+
+#forecast-header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #fff;
+  margin-top: 0;
 }
