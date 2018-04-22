@@ -1,6 +1,8 @@
-# weather-watcher
+# ☁ weather-watcher
 
-> An electron-vue project
+> An electron-vue project to display weather information to the user!
+
+![Home Screen](./demo/images/home.png)
 
 #### Build Setup
 
