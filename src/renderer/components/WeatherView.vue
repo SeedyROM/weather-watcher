@@ -24,9 +24,9 @@
           <i :class=getConditionImage()></i>
         </div>
         <div id="forecast" v-if="forecast">
-          <div class="day" :key=index v-for="(day, index) in forecast">
+          <!-- <div class="day" :key=index v-for="(day, index) in forecast.slice(8)">
             <span>{{ day.main }}</span>
-          </div>
+          </div> -->
         </div>
       </div>
     </transition>
@@ -44,13 +44,13 @@
         this.$http
           .get('//api.openweathermap.org/data/2.5/weather?zip=97210,us&units=imperial&APPID=172e53545a1e41a124daaefa77c8a667')
           .then(({data}) => {
-            console.log(data)
+            console.dir(data)
             this.weatherData = data
             this.loaded = true
           })
           .catch(error => {
             this.failedToFetch = true
-            console.log(error)
+            console.dir(error)
           })
       },
       loadForecast () {
@@ -67,7 +67,7 @@
         return this.weatherData.weather[0].main
       },
       getConditionImage () {
-        return 'owf owf-' + this.weatherData.weather[0].id
+        return 'owf owf-' + this.weatherData.weather[0].id + this.iconSuffix()
       },
       getTempurature () {
         return this.weatherData.main.temp
@@ -77,6 +77,10 @@
       },
       getMaxTempurature () {
         return this.weatherData.main.temp_min
+      },
+      iconSuffix () {
+        const now = moment()
+        return (now > this.weatherData.sys.sunrise && now < this.weatherData.sys.sunset) ? '-d' : '-n'
       }
     },
     data: function () {
